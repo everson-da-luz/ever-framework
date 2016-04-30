@@ -1,4 +1,4 @@
-![Ever Framework](http://eversondaluz.com.br/images/ever-framework-logo.png)
+![Ever Framework](http://www.eversondaluz.com.br/images/ever-framework-logo.png)
 Bem-vindo ao Ever Framework!
 ===================
 
