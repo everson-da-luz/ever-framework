@@ -1,0 +1,9 @@
+/* Styles */
+h1, p {
+    font-family: Arial;
+    line-height: 25px;
+}
+.container-center {
+    margin-top: 50px;
+    text-align: center;
+}

@@ -1,0 +1,25 @@
+<?= $this->setDoctype('html5') ?>
+<html>
+    <head>
+        <?php 
+        // Meta tag
+        $this->prependMetaTag('charset', 'utf-8');
+        $this->setTitle('Título');
+        $this->appendMetaTag('description', 'descrição');
+        
+        // CSS
+        $this->appendStyleSheet($this->getBaseUrl() . '/css/style.css', array('rel' => 'stylesheet', 'type' => 'text/css'));
+        
+        // JS
+        $this->appendScript($this->getBaseUrl() . '/js/scripts.js', array('type' => 'text/javascript'));
+        
+        echo $this->getMetaTag();
+        echo $this->getStyleSheet();
+        echo $this->getScript();
+        echo $this->getTitle();
+        ?>
+    </head>
+    <body>
+        <?= $this->content() ?>
+    </body>
+</html>
