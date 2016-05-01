@@ -19,7 +19,7 @@ Ever Framework está dividido em três diretórios principais:
 
 ###Arquivo de inicialização
 No arquivo **index.php**, após serem setados alguns diretórios e configurações necessárias, é instanciada a classe de inicialização, essa classe herda a classe interna **Bootstrap**. A classe de inicialização contida no diretório **app**, que por padrão é o arquivo **Init.php**, irá ser executada antes mesmo de ser definido para onde será despachado o usuário. Com isso pode se utilizar métodos para diversas tarefas, e para que métodos nessa classe possam ser executados automaticamente, basta utilizar a palavra **Init* conforme exemplo a seguir:
-```
+```php
 public function InitMetodo()
 {
 	// Será executado automaticamente
@@ -27,7 +27,7 @@ public function InitMetodo()
 ```
 ###Conexão com o banco de dados
 No arquivo **app/config/database.php**, basta retornar um array conforme o exemplo a seguir:
-```
+```php
 return array(
     'db_host'    => 'localhost',
     'db_user'    => 'usuario',
@@ -40,7 +40,7 @@ return array(
 ###Rotas
 Por padrão o Ever Framework utiliza a url da seguinte forma *site.com.br/controller/action/param1/value1/param2/value2...*
 caso queira criar uma rota alternativa como por exemplo a url *entre-em-contato*, basta acrescentar um array com essa rota no array contido no arquivo **app/config/routes.php** como o exemplo a seguir:
-```
+```php
 return array(
     array(
 	    'route' => 'entre-em-contato', 
