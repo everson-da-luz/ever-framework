@@ -4,7 +4,7 @@ Bem-vindo ao Ever Framework!
 
 Ever Framework é um simples framework PHP. Foi desenvolvido em busca de simplicidade e facilidade de uso. Como está na sua primeira versão ainda tem poucos métodos para um melhor aproveitamento, mas aos poucos será acrescentado mais funcionalidades. 
 
-##<i class="icon-file"></i>Documentação
+##Documentação
 
 ###Estrutura de pastas
 
@@ -18,7 +18,7 @@ Ever Framework está dividido em três diretórios principais:
 > Ever Framework disponibiliza um arquivo **.htaccess** no mesmo nível desses três diretórios, mas o mesmo não é obrigatório, ele apenas serve caso sua aplicação esteja sendo desenvolvida em um ambiente local, onde geralmente sua aplicação fica dentro de uma pasta na raiz do servidor, sendo assim esse .htaccess irá setar a pasta raiz da aplicação como a pasta public.  Caso esteja em ambiente de produção a aplicação já irá ser direcionada para a pasta public.
 
 ###Arquivo de inicialização
-No arquivo **index.php**, após serem setados alguns diretórios e configurações necessárias, é instanciada a classe de inicialização, essa classe herda a classe interna **Bootstrap**. A classe de inicialização contida no diretório **app**, que por padrão é o arquivo **Init.php**, irá ser executada antes mesmo de ser definido para onde será despachado o usuário. Com isso pode se utilizar métodos para diversas tarefas, e para que métodos nessa classe possam ser executados automaticamente, basta utilizar a palavra **Init* conforme exemplo a seguir:
+No arquivo **index.php**, após serem setados alguns diretórios e configurações necessárias, é instanciada a classe de inicialização, essa classe herda a classe interna **Bootstrap**. A classe de inicialização contida no diretório **app**, que por padrão é o arquivo **Init.php**, irá ser executada antes mesmo de ser definido para onde será despachado o usuário. Com isso pode se utilizar métodos para diversas tarefas, e para que métodos nessa classe possam ser executados automaticamente, basta utilizar a palavra **Init** conforme exemplo a seguir:
 ```php
 public function InitMetodo()
 {
@@ -34,7 +34,7 @@ return array(
     'db_pass'    => 'senha',
     'db_name'    => 'banco',
     'db_driver'  => 'mysql',
-    'db_charset' => 'utf-8'
+    'db_charset' => 'utf8'
 );
 ```
 ###Rotas
@@ -58,6 +58,16 @@ Para escolher a view que a action irá utilizar, basta utilizar o método **rend
 ```php
 $this->render('index');
 ```
+Para enviar algum dado para a view, como váriaveis, arrays, objetos do banco, etc, basta utilizar o atributo **view**, seguido do nome que esse dado vai receber e por último o seu valor, como por exemplo:
+```php
+$this->view->data = 'valor do dado';
+```
+No arquivo de view para exibir o valor enviado do controller:
+```php
+<?= $this->view->data ?>
+```
+Irá imprimir "valor do dado" na tela.
+
 ###Parâmetros
 Para resgatar um parâmetro especifico no **controller**:
 ```php
@@ -67,6 +77,20 @@ Para resgatar todos os parâmetros basta utilizar o mesmo método, porém sem pa
 ```php
 $this->getParam();
 ```
+###Model
+Os models herdam a classe interna do Ever chamada **Table**, a classe Table utiliza um objeto da classe nativa do PHP chamada **PDO**, por isso todos os métodos do PDO são aceitáveis pela instancia do Model criado. Para utilizar um model basta instanciar a classe desejada, como por exemplo:
+```php
+$model = new \App\Models\MyModel();
+```
+Caso não queira escrever todo o caminho do namespace, basta usar o namespace no começo do arquivo:
+```php
+use App\Models;
+```
+Para definir qual a tabela do banco de dados que o model irá utilizar, basta definir o nome da tabela no atributo protegido chamado **$table**:
+```php
+protected $table = "tabela";
+```
+
 ###Layouts
 Por padrão os layouts estão no diretório **app/views/layouts**, e por padrão o nome do arquivo de layout é **layout.phtml**, mas caso queira alterar o nome do layout ou criar diversos arquivos para uma melhor organização, basta utilizar o método na action onde você deseja essa mudança:
 ```php
