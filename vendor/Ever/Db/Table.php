@@ -77,7 +77,10 @@ class Table
     public function __construct()
     {
         $this->db = Connection::getDb();
-        $this->db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+        
+        if (!empty($this->db)) {
+            $this->db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+        }
     }
     
     /**

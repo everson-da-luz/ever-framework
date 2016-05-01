@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Ever\Db\Table;
 
-class Exemplo extends Table
+class MyModel extends Table
 {
     protected $table = "tabela";
 }
