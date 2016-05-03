@@ -58,7 +58,7 @@ Para escolher a view que a action irá utilizar, basta utilizar o método **rend
 ```php
 $this->render('index');
 ```
-Para enviar algum dado para a view, como váriaveis, arrays, objetos do banco, etc, basta utilizar o atributo **view**, seguido do nome que esse dado vai receber e por último o seu valor, como por exemplo:
+Para enviar algum dado para a view, como variáveis, arrays, objetos do banco, etc, basta utilizar o atributo **view**, seguido do nome que esse dado vai receber e por último o seu valor, como por exemplo:
 ```php
 $this->view->data = 'valor do dado';
 ```
@@ -77,6 +77,29 @@ Para resgatar todos os parâmetros basta utilizar o mesmo método, porém sem pa
 ```php
 $this->getParam();
 ```
+###Error Controller
+No arquivo **app/config/config.php** você pode definir qual vai ser o controller que fará manipulação de erros. Por padrão é o **Error.php**, mas você pode alterar, apenas modificando a constante no arquivo config.
+```php
+define('ERROR_CONTROLLER', 'Error');
+```
+No controller Error você resgata os erros vindo de um exception, resgatando com o parâmetro **error**.
+```php
+$error = $this->getParam('error');
+```
+Com isso basta enviar os erros para a view e manipular ao seu gosto.
+```php
+$this->view->error = $error;
+```
+Para lançar um exception e manipula-lo no controller error, basta utiliziar a classe interna do Ever Framework chamada **Exception**, que estende a classe nativa do PHP Exception. Com isso basta colocar o código em um bloco **try catch**, e utilizar o método **errorHandler()**.
+```php
+try {
+	// Código            
+} catch (\Ever\Exception\Exception $e) {
+    \Ever\Exception\Exception::errorHandler($e);
+}
+```
+Caso haja algum erro no código o usuário será despachado para o Error Controller, e lá você pode manipular o erro e exibir páginas como a 404, 500, etc.
+
 ###Model
 Os models herdam a classe interna do Ever chamada **Table**, a classe Table utiliza um objeto da classe nativa do PHP chamada **PDO**, por isso todos os métodos do PDO são aceitáveis pela instancia do Model criado. Para utilizar um model basta instanciar a classe desejada, como por exemplo:
 ```php
@@ -89,6 +112,84 @@ use App\Models;
 Para definir qual a tabela do banco de dados que o model irá utilizar, basta definir o nome da tabela no atributo protegido chamado **$table**:
 ```php
 protected $table = "tabela";
+```
+Para manipular querys você pode usar a instância da classe ou dentro do próprio model.
+
+Para fazer uma consulta:
+```php
+$this->select();
+$this->fetchAll();
+```
+O método **fetchAll()** pode receber como parâmetro o tipo de retorno da consulta, para isso pode-se passar os seguintes valores:
+
+ - **fetch_assoc**:  voltará cada linha como um array indexado pelo nome da coluna como índices.
+ - **fetch_num**: voltará cada linha como um array indexado pelo número da coluna como índices.
+ - **fetch_obj**: voltará cada linha como um objeto com nomes de propriedade que correspondem aos nomes das colunas.
+ - **fetch_both**: voltará cada linha como um array indexada tanto pelo nome da coluna e número da coluna, a partir de coluna 0 .
+
+Caso não seja especificado o padrão é **fetch_both**.
+
+Para consultar somente uma ou mais colunas:
+```php
+// Retorna somente o valor da coluna nome
+$this->select('nome');
+$this->fetchAll();
+
+// Retorna o valor da coluna id e nome
+$this->select(array('id', 'nome'));
+$this->fetchAll();
+
+// Retorna o valor da coluna id e nome
+// Porém colocando um apelido em cada uma
+$this->select(array(
+	'id'   => 'identificador', 
+	'nome' => 'apelido'
+));
+$this->fetchAll();
+```
+
+Para unir mais tabelas você pode utilizar o método **join()**:
+```php
+join($table, $condition, $fields = null, $joinType = null)
+```
+Por exemplo:
+```php
+$this->select(array('id', 'nome'));
+$this->join('outra_tabela', 'outra_tabela.id = tabela.id', array('id', 'conteudo'), 'left');
+$this->fetchAll();
+```
+Tipos de join:
+
+ - **left**
+ - **right**
+ - **inner**: Padrão caso não seja informado
+
+Condição na consulta:
+```php
+$this->select();
+$this->where('id = 2');
+$this->fetchAll();
+```
+Multiplas condições:
+```php
+$this->select();
+$this->where(array('id => 2', 'nome' => 'joao'));
+$this->fetchAll();
+```
+
+Ordenar consulta:
+```php
+$this->select();
+$this->order('nome DESC'); // ou ASC
+$this->fetchAll();
+```
+
+Limitar consulta:
+```php
+$this->select();
+$this->limit(2);
+$this->offset(3); // Se necessário
+$this->fetchAll();
 ```
 
 ###Layouts
