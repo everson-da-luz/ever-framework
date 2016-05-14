@@ -191,6 +191,27 @@ $this->limit(2);
 $this->offset(3); // Se necessário
 $this->fetchAll();
 ```
+Inserindo dados (Insert):
+Use a instância do model e o método **insert**, passando um array contendo o nome da coluna e o seu valor.
+```php
+$model = new Models\MyModel();
+$model->insert(array(
+    'coluna1' => 'valor1', 
+    'coluna2' => 'valor2'
+));
+```
+Editando dados (Update)
+Use a instância do model e o método **update**, passado a condição como segundo parâmetro.
+```php
+$model = new Models\MyModel();
+$model->update(array('coluna1' => 'valor1', 'coluna2' => 'valor2'), 'id = 1');
+```
+Deletando dados (Delete)
+Use a instância do model e o método **delete**, a condição como segundo parâmetro.
+```php
+$model = new Models\MyModel();
+$model->delete('id = 3');
+```
 
 ###Layouts
 Por padrão os layouts estão no diretório **app/views/layouts**, e por padrão o nome do arquivo de layout é **layout.phtml**, mas caso queira alterar o nome do layout ou criar diversos arquivos para uma melhor organização, basta utilizar o método na action onde você deseja essa mudança:
