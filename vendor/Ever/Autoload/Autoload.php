@@ -16,18 +16,18 @@ namespace Ever\Autoload;
 class Autoload
 {
     /**
-     * Caminhos para serem adicionados no autoloader
+     * Paths to be added in the autoloader
      * @var array 
      */
     private static $pathToAutoload = array('/', '/vendor/');
     
     /**
-     * Adiciona mais um caminho para o autoloader.
-     * Esse novo caminho deve conter uma barra no ínicio e fim.
-     * Também executa o autoload caso alguma classe
-     * não seja incluida na aplicação.
+     * Add another path to the autoloader.
+     * This new path must contain a slash at the beginning and end.
+     * Also runs autoload if any class
+     * Is not included in the application.
      * 
-     * @param String $path Caminho para adicionar no autoload
+     * @param String $path Way to add the autoload
      */
     public static function autoloadRegister($path = null) 
     {
@@ -39,24 +39,24 @@ class Autoload
     }
     
     /**
-     * Executa a inclusão automática das classes.
-     * As classes serão procuradas nos caminhos setados
-     * na propriedade <b>pathToAutoload</b>.
+     * Performs automatic inclusion of classes.
+     * The classes will be searched in the paths defined on the property
+     * <b>pathToAutoload</b>.
      * 
-     * @param String $class Nome da classe para o carregamento automatico.
+     * @param String $class Class name for automatic loading
      */
     private static function loader($class)
     {
         $basedir = dirname(APP_PATH);
         $filename = str_replace('\\', '/', $class) . ".php";
         
-        // Verifica se existe a palavra App no namespace
+        // Checks for the App word in the namespace
         if (strpos($filename, 'App') !== false) {
             $expFilename = explode('/', strtolower($filename));
             $className = ucfirst(end($expFilename));
             
-            array_pop($expFilename); // Remove o nome da classe
-            array_push($expFilename, $className); // Adciona o nome da classe
+            array_pop($expFilename); // Remove the name of class
+            array_push($expFilename, $className); // Add the class name
             
             $filename = implode('/', $expFilename);
         }

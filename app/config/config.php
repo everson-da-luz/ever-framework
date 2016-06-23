@@ -2,29 +2,30 @@
 /**
  * Ever Framework
  * 
- * Configurações gerais da aplicação
+ * General application settings
  */
 
 /** 
- * Defini se os erros serão exibidos ou não.
- * 1 = Exibi erros
- * 0 = Não exibi erros
+ * Sets whether errors are displayed.
+ * 1 = Enable errors
+ * 0 = Disable errors
  */
 define('DISPLAY_ERROR', 1);
 
 /** 
- * Diretório raiz da aplicação.
- * Essa constante irá obter o nome do diretório raiz,
- * com isso será usado para identificar se a aplicação esta rodando em um ambiente local,
- * também pode ser usuado para setar algum caminho começando pela raiz.
+ * Directory application root.
+ *
+ * This constant will get the name of the root directory, it is used to
+ * Identify whether the application is running in a local environment,
+ * May also be usuado for paths beginning with the application root.
  */
 define('BASE_DIR', basename(dirname(APP_PATH)));
 
-// Nome da pasta dos controllers
+// Folder name of controllers
 define('CONTROLLER_FOLDER', 'controllers');
 
-// Nome do controller para minipulação de erros
+// Controller name for error handling
 define('ERROR_CONTROLLER', 'Error');
 
-// Separador de diretórios
+// Directory separator
 define('DS', DIRECTORY_SEPARATOR);
