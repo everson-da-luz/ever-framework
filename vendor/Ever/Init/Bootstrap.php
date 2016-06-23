@@ -18,28 +18,29 @@ use Ever\View\View;
 class Bootstrap
 {
     /**
-     * Recebe as rotas setadas para a aplicação
+     * Receives the routes defined for the application
      * @var array 
      */
     private $routes;
     
     /**
-     * Controller atual
+     * Current controller
      * @var string 
      */
     private $controller;
     
     /**
-     * Action atual
+     * Current Action
      * @var string 
      */
     private $action;
     
     /**
-     * Método construtor
-     * Seta se exibirá os erros ou não.
-     * Executa os métodos setados na class Init com o nome que comece com Init.
-     * Seta as rotas da aplicação.
+     * Method contruct
+     * Sets whether errors are displayed or not.
+     * Executes the methods defined in the Init 
+     * class with the name starting with Init.
+     * Defines the application routes.
      */
     public function __construct() 
     {
@@ -51,7 +52,7 @@ class Bootstrap
     }
     
     /**
-     * Seta se será exibido os erros ou não
+     * Sets whether errors are displayed or not.
      */
     public function setShowErrors()
     {
@@ -63,18 +64,18 @@ class Bootstrap
     }
 
     /**
-     * Carrega e executa os métodos setados na classe filha
-     * que contenha a palavra Init.
+     * Loads and executes the methods defined in child class that contains 
+     * the word Init.
      */
     private function loadMethods()
     {
-        // Obtêm o nome da classe filha
+        // Get the name of the child class
         $classChildren = get_called_class();
         
-        // Obtêm todos os métodos da própria classe e da classe filha
+        // Get all the methods of the class itself and child class
         $methods = get_class_methods($classChildren);
         
-        // Percorre e executa os métodos
+        // Performing the methods
         foreach ($methods as $method) {
             if (!is_bool(strpos($method, 'Init'))) {
                 $classChildren::$method();
@@ -83,9 +84,9 @@ class Bootstrap
     }
     
     /**
-     * Seta as rotas da aplicação
+     * Defines the application routes
      * 
-     * @param array $routes array contendo as rotas definidas
+     * @param array $routes array containing the defined routes
      */
     private function setRoutes(array $routes)
     {
@@ -93,20 +94,20 @@ class Bootstrap
     }
     
     /**
-     * Percorre as rotas verificando se a url pertence a alguma rota,
-     * caso pertença será setados o controller, action e params 
-     * pertencentes aquela rota
+     * Runs along the routes by checking the url belong to a route if he belongs 
+     * shall be setados the controller, action and params belonging that route
      * 
-     * @param String $url Url atual
+     * @param String $url Current url
      */
     public function verifyUrlInRoutes($url)
     {
         array_walk($this->routes, function($route) use ($url) {
             if ($url == $route['route']) {
-                $this->controller = empty($route['controller']) ? 'index' : $route['controller'];
-                $this->action = empty($route['action']) ? 'index' : $route['action'];
+                $this->controller = empty($route['controller']) 
+                    ? 'index' : $route['controller'];
+                $this->action = empty($route['action']) 
+                    ? 'index' : $route['action'];
                 
-                // Se definido paramêtros para essa rota será setado
                 if (isset($route['params']) && !empty($route['params'])) {
                     $funcArray = array_map(
                         function ($v, $k) { 
@@ -118,29 +119,31 @@ class Bootstrap
 
                     $params = implode('/', $funcArray);
                     
-                    View::setParams('/' . $this->controller . '/' . $this->action . '/' . $params);
+                    View::setParams('/' . $this->controller 
+                        . '/' . $this->action . '/' . $params
+                    );
                 }
             }
         });
     }
 
     /**
-     * Despacha o usuário para o controller e action
-     * buscando a url atual e as rotas, verificando se a url
-     * consta nas rotas, caso não conste,
-     * será dispachado para o controller e action setados na url,
-     * caso não esteja setado na url o controller e action
-     * a aplicação irá despachar para o controller e action index.
+     * Dispatches the user to the controller and action seeking the current url 
+     * and routes by checking that the URL listed on the routes, if not record, 
+     * will dispachado to the controller and action set in the url, if not set 
+     * in the url the controller and action to application will dispatch to the 
+     * controller and the index action.
      */
     public function run()
     {
-        // Url atual
+        // Current url
         $url = View::getCurrentUrl();
         
-        // Percorre as rotas verificando se a url pertence a alguma rota
+        // Runs along the routes by checking that the URL belongs to some route
         $this->verifyUrlInRoutes($url);
 
-        // Se a url não pertence a nenhuma rota, será setado o controller e action
+        // If the url does not belong to any route, 
+        // the controller and action will be set
         if (empty($this->controller) || empty($this->action)) {
             $segments = explode('/', $url);
 

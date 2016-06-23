@@ -1,20 +1,20 @@
 <?php
 /**
- * Rotas da aplicação
+ * Application routes
  * 
- * Essa rota irá definir para qual controller e action 
- * o usuário será direcionado. 
- * toda rota deverá ser um array e deve conter os seguintes índices:
+ * This route will define to which controller and action the user will be 
+ * directed. Every route should be an array and must 
+ * contain the following indexes:
  * 
- * <b>route</b>      o nome da rota, que será o valor digitado na url.
- * <b>controller</b> controller que a rota irá buscar, se não for definido irá 
- *                   mandar para o controller Index.
- * <b>action</b>     action que a rota irá buscar, se não for definido irá 
- *                   mandar para a action Index.
- * <b>params</b>     paramêtros passados, esse indíce deve receber um array como 
- *                   valor, sendo a key o nome do paramêtro e o value o seu valor. 
+ * <b>route</b> the name of the route, which will be the value typed in the url.
+ * <b>controller</b> controller that the route will seek, if not set will 
+ * arrange for the Index controller.
+ * <b>action</b> action that the route will seek, if not set will arrange for 
+ * the Index action.
+ * <b>params</b> parameters passed, the indices should receive an array as 
+ * value, with the key the parameter name and value their worth.
  *
- * @return Array contendo as rotas definidas
+ * @return Array containing the defined routes
  */
 return array(
     array('route' => 'home', 'controller' => 'index', 'action' => 'index')

@@ -1,16 +1,16 @@
 <?php
 /**
- * Configurações para conexão com o banco de dados.
- * Deve ser setado um array com os seguintes índices: 
+ * Settings for connecting to the database.
+ * It must be set an array with the following indexes:
  * 
- * db_host = hostname do servidor do banco de dados
- * db_user = usuário do banco de dados
- * db_pass = senha do banco de dados
- * db_name = nome do banco de dados
- * db_driver = driver do banco, por exemplo mysql, pgsql, firebird
- * db_charset = encoding de caracteres
+ * db_host = hostname of the database server
+ * db_user = database user
+ * db_pass = database password
+ * db_name = database name
+ * db_driver = database driver, for example mysql, pgsql, firebird
+ * db_charset = encoding character
  * 
- * @return Array contendo as informações de conexão com o banco
+ * @return Array containing the connection information to the database
  */
 return array(
     
