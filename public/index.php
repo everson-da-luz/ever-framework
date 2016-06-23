@@ -1,19 +1,19 @@
 <?php
-// Define o caminho do diretório app
+// Sets the path of the app directory
 defined('APP_PATH')
     || define('APP_PATH', realpath(dirname(__FILE__) . '/../app'));
 
-// Nome da pasta public
+// Directory name public
 define('PUBLIC_FOLDER', basename(__DIR__));
 
-// Inclui as configurações gerais
+// It includes general settings
 require_once APP_PATH . '/config/config.php';
 
-// Inclui e registra as classes no autoload
+// It includes classes and register to the autoload
 require_once APP_PATH . '/../vendor/Ever/Autoload/Autoload.php';
 \Ever\Autoload\Autoload::autoloadRegister();
 
-// Instância da classe de inicialização
+// Startup Class Instance
 $init = new App\Init;
-// Roda a aplicação
+// Run the application
 $init->run();
