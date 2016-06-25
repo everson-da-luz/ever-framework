@@ -16,8 +16,8 @@ namespace Ever\Db;
 class Connection
 {
     /**
-     * Conexão com o banco de dados,
-     * buscando as informações setadas no arquivo de conexão database.php
+     * Connection to the database, searching for the information defined in the 
+     * connection file database.php
      * 
      * @return \PDO
      */
@@ -27,10 +27,12 @@ class Connection
             $dbConfig = require_once APP_PATH . '/config/database.php';
             
             if (!empty($dbConfig)) {
-                $config  = (!empty($dbConfig['db_driver']) ? $dbConfig['db_driver'] : 'mysql') . ':';
+                $config  = (!empty($dbConfig['db_driver']) ? 
+                    $dbConfig['db_driver'] : 'mysql') . ':';
                 $config .= "host={$dbConfig['db_host']}";
                 $config .= ";dbname={$dbConfig['db_name']}";
-                $config .= ";charset=" . (!empty($dbConfig['db_charset']) ? $dbConfig['db_charset'] : 'utf8');
+                $config .= ";charset=" . (!empty($dbConfig['db_charset']) ? 
+                    $dbConfig['db_charset'] : 'utf8');
 
                 $db = new \PDO($config, $dbConfig['db_user'], $dbConfig['db_pass']);
 

@@ -18,21 +18,21 @@ use Ever\View\View;
 class Action extends View
 {   
     /**
-     * Recebe uma classe std, para poder ser passado atributos para view
+     * You receive a std class in order to be passed attributes to view
      * @var stdClass 
      */
     protected $view;
     
     /**
-     * Nome da action atual
+     * Current action name
      * @var string 
      */
     protected $action;
     
     /**
-     * Método construtor
-     * Executa o método construtor da classe View.
-     * Defini o atributo view como um objeto da classe std.
+     * Construct method
+     * Runs the constructor method of the View class.
+     * Define the view attribute as an object of std class.
      */
     public function __construct() 
     {
@@ -42,12 +42,12 @@ class Action extends View
     }
     
     /**
-     * Renderiza o usuário para a view.
-     * Recebendo a nome da action no qual a aplicação deve incluir,
-     * e também verifica se essa action vai conter um layout ou não. 
+     * Renders the user to view.
+     * Receiving the name of action on which the application must include, 
+     * and also checks whether the action will contain a layout or not. 
      * 
-     * @param String  $action Nome da action
-     * @param Boolean $layout Se a view vai conter layout ou não
+     * @param String  $action action name
+     * @param Boolean $layout If the view will contain layout or not
      */
     public function render($action, $layout = true)
     { 
@@ -61,18 +61,24 @@ class Action extends View
     }
     
     /**
-     * Inclui o arquivo da view correspondente com a action
+     * It includes the corresponding view file with the action
      */
     public function content()
     {
         $classAtual = get_class($this);
-        $singleClassName = strtolower(str_replace('App\\' . ucfirst(CONTROLLER_FOLDER) . '\\', '', $classAtual));
+        $singleClassName = strtolower(
+            str_replace('App\\' . ucfirst(CONTROLLER_FOLDER) . '\\', 
+                '', $classAtual)
+            );
 
         try {
-            if (file_exists(APP_PATH . '/views/' . $singleClassName . '/' . $this->action . '.phtml')) {              
-                require_once APP_PATH . '/views/' . $singleClassName . '/' . $this->action . '.phtml';
+            if (file_exists(APP_PATH . '/views/' . $singleClassName . '/' . 
+                    $this->action . '.phtml')) {              
+                require_once APP_PATH . '/views/' . $singleClassName . '/' . 
+                        $this->action . '.phtml';
             } else {
-                throw new \Ever\Exception\Exception("File {$this->action}.phtml does not exist", 404);
+                throw new \Ever\Exception\Exception("
+                    File {$this->action}.phtml does not exist", 404);
             }
         } catch (\Ever\Exception\Exception $e) {
             \Ever\Exception\Exception::errorHandler($e);

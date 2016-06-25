@@ -18,12 +18,12 @@ use Ever\View\View;
 class Exception extends \Exception
 {
     /**
-     * Resgata uma exception e despacha a aplicação
-     * para o controller de erros definido na constante <b>CONTROLLER_FOLDER</b>,
-     * caso não tenha sido definido o controller para erros,
-     * sera despachado para um layout padrão de erros.
+     * Redeems an exception and dispatches the application to the error 
+     * controller defined in constant <b> CONTROLLER_FOLDER </ b> if you have 
+     * not set the controller for error, will be dispatched to an error 
+     * standard layout.
      * 
-     * @param \Exception $e Exceção lançada.
+     * @param \Exception $e exception thrown
      */
     public static function errorHandler($e)
     {
@@ -38,8 +38,8 @@ class Exception extends \Exception
 
         View::setParams($error);
         
-        if (file_exists(APP_PATH . DS . CONTROLLER_FOLDER . DS . ucfirst(ERROR_CONTROLLER) . '.php')
-            && defined('ERROR_CONTROLLER')) {
+        if (file_exists(APP_PATH . DS . CONTROLLER_FOLDER . DS . 
+            ucfirst(ERROR_CONTROLLER) . '.php') && defined('ERROR_CONTROLLER')) {
             $classError = "\\App\\" . ucfirst(CONTROLLER_FOLDER) . "\\Error";
             $errorController = new $classError();
             $errorController->index();
@@ -49,10 +49,9 @@ class Exception extends \Exception
     }
     
     /**
-     * Layout padrão de erros, caso o controller de manipulação
-     * de erros não tenha sido definido.
+     * Error standard layout, if the error handling controller has not been set.
      * 
-     * @param \Exception $e Exceção lançada
+     * @param \Exception $e exception thrown
      * @return String
      */
     private static function defaultLayoutError($e)
