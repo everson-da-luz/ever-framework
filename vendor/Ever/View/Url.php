@@ -16,15 +16,14 @@ namespace Ever\View;
 Trait Url 
 {
     /**
-     * Array com os paramêtros da url ou setados nas rotas
+     * Array with the parameters defined in the routes or url
      * @var array 
      */
     private static $params = array();
     
     /**
-     * Obtem a url atual após o domínio
-     * Caso a aplicação esta em um sub diretório, 
-     * irá ser removido o nome do sub diretório
+     * Get the current url after the domain, if the application is in a sub 
+     * directory will be removed from the sub directory name
      * 
      * @return string Url atual
      */
@@ -42,10 +41,10 @@ Trait Url
     }
     
     /**
-     * Seta os paramêtros referente a url atual
-     * ou os paramêtros setados nas rotas.
+     * Set the parameters related to the current url or setados 
+     * parameters in routes.
      * 
-     * @param String\Array $Param Url atual ou array contendo os parâmetros
+     * @param String|Array $param Current url or array containing the parameters
      */
     public static function setParams($param = null)
     {        
@@ -55,7 +54,7 @@ Trait Url
             $params = explode('/', $param);
             unset($params[0], $params[1]);
 
-            if(array_filter($params)) {
+            if (array_filter($params)) {
                 if (count($params) % 2) {
                     array_push($params, '');
                 }
@@ -76,7 +75,7 @@ Trait Url
                 $value = array();
             }
 
-            if(count($ind) == count($value) && !empty($ind) && !empty($value)) {
+            if (count($ind) == count($value) && !empty($ind) && !empty($value)) {
                 self::$params = array_combine($ind, $value);                
             } else {
                 self::$params = array();
@@ -85,12 +84,11 @@ Trait Url
     }
     
     /**
-     * Retorna o valor de um determinado paramêtro.
-     * Caso não seja informado o nome do paramêtro,
-     * irá retornar um array contendo todos os paramêtros da url
+     * Returns the value of a given parameter. If not informed the parameter to 
+     * name, will return an array containing all the parameters of the url
      * 
-     * @param String $name nome do paramêtro a ser buscado
-     * @return String/Array
+     * @param String $name Parameter name to be searched
+     * @return String|Array
      */
     public function getParam($name = null)
     {
@@ -106,16 +104,18 @@ Trait Url
     }
     
     /**
-     * Retorna o baseUrl padrão da aplicação
+     * Returns the application default baseUrl
      * 
      * @return String
      */
     public function getBaseUrl()
     {
-	$pathInfo = pathinfo($_SERVER['PHP_SELF']); 
-	$protocol = strtolower(substr($_SERVER["SERVER_PROTOCOL"], 0, 5)) == 'https://' ? 'https://' : 'http://';
-        $baseUrl = $protocol . $_SERVER['HTTP_HOST'] . str_replace(PUBLIC_FOLDER . '/', '', $pathInfo['dirname']);
+        $pathInfo = pathinfo($_SERVER['PHP_SELF']); 
+        $protocol = strtolower(substr($_SERVER["SERVER_PROTOCOL"], 0, 5)) == 
+            'https://' ? 'https://' : 'http://';
+        $baseUrl = $protocol . $_SERVER['HTTP_HOST'] . 
+            str_replace(PUBLIC_FOLDER . '/', '', $pathInfo['dirname']);
         
-	return $baseUrl;
+        return $baseUrl;
     }
 }

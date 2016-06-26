@@ -16,22 +16,21 @@ namespace Ever\View;
 trait Layout
 {
     /**
-     * Nome do arquivo de layout
+     * Layout file name
      * @var string 
      */
     private $layout;
     
     /**
-     * Caminho do arquivo de layout
+     * Path layout file
      * @var string 
      */
     private $layoutPath;
     
     /**
-     * Seta o nome do arquivo de layout,
-     * por padrão é layout.
+     * Sets the name of the layout file by default is layout.
      * 
-     * @param string $layout nome do arquivo de layout
+     * @param string $layout name of the layout file
      */
     public function setLayout($layout = 'layout')
     {
@@ -41,9 +40,9 @@ trait Layout
     }
     
     /**
-     * Seta o caminho do arquivo de layout
+     * Sets the path of the layout file
      * 
-     * @param string $layoutPath caminho do arquivo de layout
+     * @param string $layoutPath path layout file
      */
     public function setLayoutPath($layoutPath = null)
     {
@@ -55,7 +54,7 @@ trait Layout
     }
     
     /**
-     * Obtêm o nome do arquivo de layout
+     * Get the name of the layout file
      * 
      * @return string
      */
@@ -65,7 +64,7 @@ trait Layout
     }
     
     /**
-     * Obtêm o caminho do arquivo de layout
+     * Get the path of the layout file
      * 
      * @return string
      */

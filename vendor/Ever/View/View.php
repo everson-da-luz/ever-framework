@@ -18,13 +18,13 @@ use Ever\View\Head,
  */
 class View
 {
-    /** Usa as Traits Head, Url e Layout */
+    /** Use the Traits Head, Url and Layout */
     use Head,
         Url,
         Layout;
     
     /**
-     * Método construtor para setar o layout padrão
+     * Constructor method to set the default layout
      */
     public function __construct() 
     {

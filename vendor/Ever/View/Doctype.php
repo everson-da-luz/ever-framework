@@ -16,14 +16,14 @@ namespace Ever\View;
 trait Doctype
 {
     /**
-     * Doctype setado para a aplicação
+     * Doctype defined for the application
      * @var String 
      */
     protected $doctype;
     
     /**
-     * Método Construtor
-     * Seta o doctype da aplicação
+     * Construct method
+     * Sets the application doctype
      */
     public function __construct()
     {
@@ -31,10 +31,9 @@ trait Doctype
     }
     
     /**
-     * Seta o doctype para a aplicação,
-     * o valor padrão é html5
+     * Sets the doctype for the application, the default value is html5
      * 
-     * @param  string $doctype doctype da aplicação
+     * @param  string $doctype doctype of application
      * @return string
      */
     public function setDoctype($doctype = 'html5')
