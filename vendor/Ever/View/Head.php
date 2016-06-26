@@ -17,37 +17,37 @@ use Ever\View\Doctype;
  */
 trait Head
 {
-    /** Usa a Trait Doctype */
+    /** Uses Trait Doctype */
     use Doctype;
     
     /**
-     * Título da página
+     * Page title
      * @var string 
      */
     private $title;
     
     /**
-     * Array contendo as meta tags
+     * Array containing the meta tags
      * @var Array 
      */
     private $metaTag = array();
     
     /**
-     * Array contendo os estilos da página
+     * Array containing the page styles
      * @var Array 
      */
     private $styleSheet = array();
     
     /**
-     * Array contendo os scripts da página
+     * Array containing the page scripts
      * @var Array 
      */
     private $script = array();
     
     /**
-     * Seta o título da página
+     * Sets the page title
      * 
-     * @param string $title título da página
+     * @param string $title page title
      */
     public function setTitle($title)
     {
@@ -55,7 +55,7 @@ trait Head
     }
     
     /**
-     * Obtêm o título da página
+     * Get the page title
      * 
      * @return string
      */
@@ -65,11 +65,11 @@ trait Head
     }
     
     /**
-     * Adiciona uma meta tag no ínicio do array
-     * onde são guardadas as meta tag para depois imprimi-las na tela
+     * Add a meta tag at the beginning of the array where the meta tag are saved 
+     * and then print them on the screen
      * 
-     * @param string $type    Tipo da meta tag
-     * @param string $content Conteúdo da meta tag
+     * @param string $type    Type meta tag
+     * @param string $content Content meta tag
      */
     public function prependMetaTag($type, $content = null)
     {
@@ -80,24 +80,28 @@ trait Head
             case 'content-type':
             case 'default-style':
             case 'refresh':
-                array_unshift($this->metaTag, array('http-equiv' => $type, 'content' => $content));
+                array_unshift($this->metaTag, array(
+                    'http-equiv' => $type, 'content' => $content
+                ));
                 break;
             case 'application-name':
             case 'author':
             case 'description':
             case 'generator':
             case 'keywords':
-                array_unshift($this->metaTag, array('name' => $type, 'content' => $content));
+                array_unshift($this->metaTag, array(
+                    'name' => $type, 'content' => $content
+                ));
                 break;
         }
     }
     
     /**
-     * Adiciona uma meta tag no final do array
-     * onde são guardadas as meta tag para depois imprimi-las na tela
+     * Add a meta tag at the end of the array where the meta tag are saved and 
+     * then print them on the screen
      * 
-     * @param string $type    Tipo da meta tag
-     * @param string $content Conteúdo da meta tag
+     * @param string $type    Type meta tag
+     * @param string $content Content meta tag
      */
     public function appendMetaTag($type, $content = null)
     {
@@ -108,21 +112,25 @@ trait Head
             case 'content-type':
             case 'default-style':
             case 'refresh':
-                array_push($this->metaTag, array('http-equiv' => $type, 'content' => $content));
+                array_push($this->metaTag, array(
+                    'http-equiv' => $type, 'content' => $content
+                ));
                 break;
             case 'application-name':
             case 'author':
             case 'description':
             case 'generator':
             case 'keywords':
-                array_push($this->metaTag, array('name' => $type, 'content' => $content));
+                array_push($this->metaTag, array(
+                    'name' => $type, 'content' => $content
+                ));
                 break;
         }
     }
     
     /**
-     * Obtêm as meta tags setadas,
-     * conforme ordem de precedencia pelos métodos prependMetaTag e appendMetaTag
+     * Get the meta tags defined as the order of precedence by prependMetaTag 
+     * methods and appendMetaTag
      * 
      * @return string
      */
@@ -135,7 +143,8 @@ trait Head
                 if (key($value) == 'charset') {
                     $meta .= '<meta charset="' . $value['charset'] . '"';
                 } else {
-                    $meta .= '<meta name="' . $value['name'] . '" content="' . $value['content'] . '"';
+                    $meta .= '<meta name="' . $value['name'] . 
+                        '" content="' . $value['content'] . '"';
                 }
                 
                 $meta .= $this->closeTagHead();
@@ -146,32 +155,36 @@ trait Head
     }
     
     /**
-     * Adiciona folhas de estilos no ínicio do array
-     * onde são armazenados todas as folhas de estilos setadas.
+     * Add style sheets at the beginning of the array which are stored all the 
+     * leaves of unset styles.
      * 
-     * @param string $href       caminho da folha de estilo
-     * @param array  $attributes atributos para a tag link
+     * @param string $href       path of the stylesheet
+     * @param array  $attributes attributes for the link tag
      */
     public function prependStyleSheet($href, array $attributes = null)
     {
-        array_push($this->styleSheet, array('href' => $href, 'attributes' => $attributes));
+        array_push($this->styleSheet, array(
+            'href' => $href, 'attributes' => $attributes
+        ));
     }
     
     /**
-     * Adiciona folhas de estilos no final do array
-     * onde são armazenados todas as folhas de estilos setadas.
+     * Add style sheets at the end of the array which are stored all the leaves
+     * of unset styles.
      * 
-     * @param string $href       caminho da folha de estilo
-     * @param array  $attributes atributos para a tag link
+     * @param string $href       path of the stylesheet
+     * @param array  $attributes attributes for the link tag
      */
     public function appendStyleSheet($href, array $attributes = null)
     {
-        array_unshift($this->styleSheet, array('href' => $href, 'attributes' => $attributes));
+        array_unshift($this->styleSheet, array(
+            'href' => $href, 'attributes' => $attributes
+        ));
     }
     
     /**
-     * Monta a tag link, se conter atributos os mesmos serão atribidos a tag.
-     * Retorna as tags link com as folhas de estilo setadas para a página.
+     * Mounts the tag link, if attributes contain the same will be atribidos 
+     * the tag. Returns the tag link with the unset style sheets page.
      * 
      * @return string
      */
@@ -197,32 +210,36 @@ trait Head
     }
     
     /**
-     * Adiciona scripts no ínicio do array
-     * onde são armazenados todas os scripts setadas.
+     * Add scripts at the beginning of the array which are stored all the 
+     * unset scripts.
      * 
-     * @param string $src        caminho do script
-     * @param array  $attributes atributos para a tag script
+     * @param string $src        script path
+     * @param array  $attributes attributes for the script tag
      */
     public function prependScript($src, array $attributes = null)
     {
-        array_push($this->script, array('src' => $src, 'attributes' => $attributes));
+        array_push($this->script, array(
+            'src' => $src, 'attributes' => $attributes
+        ));
     }
     
     /**
-     * Adiciona scripts no final do array
-     * onde são armazenados todas os scripts setadas.
+     * Add scripts at the end of the array which are stored all the 
+     * unset scripts.
      * 
-     * @param string $src        caminho do script
-     * @param array  $attributes atributos para a tag script
+     * @param string $src        script path
+     * @param array  $attributes attributes for the script tag
      */
     public function appendScript($src, array $attributes = null)
     {
-        array_unshift($this->script, array('src' => $src, 'attributes' => $attributes));
+        array_unshift($this->script, array(
+            'src' => $src, 'attributes' => $attributes
+        ));
     }
     
     /**
-     * Monta a tag script, se conter atributos os mesmos serão atribidos a tag.
-     * Retorna as tags script com os scripts setadas para a página.
+     * Mounts the script tag, if contain the same attributes will atribidos the 
+     * tag. Returns the script tags with the unset scripts page.
      * 
      * @return string
      */
@@ -248,7 +265,7 @@ trait Head
     }
     
     /**
-     * Fecha as tags do head de acordo com o Doctype setado.
+     * Close head of the tags according to the setted Doctype.
      * 
      * @return string
      */
@@ -263,4 +280,3 @@ trait Head
         return $close;
     }
 }
-

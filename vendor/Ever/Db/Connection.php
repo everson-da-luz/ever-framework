@@ -34,7 +34,8 @@ class Connection
                 $config .= ";charset=" . (!empty($dbConfig['db_charset']) ? 
                     $dbConfig['db_charset'] : 'utf8');
 
-                $db = new \PDO($config, $dbConfig['db_user'], $dbConfig['db_pass']);
+                $db = new \PDO($config, $dbConfig['db_user'], 
+                    $dbConfig['db_pass']);
 
                 return $db;
             }
