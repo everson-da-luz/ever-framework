@@ -16,63 +16,62 @@ namespace Ever\Db;
 class Table
 {
     /**
-     * Instância da classe PDO
+     * Instance of the PDO class
      * @var \PDO
      */
     protected $db;
     
     /**
-     * Nome da tabela do banco de dados
-     * no qual será feito toda a query.
+     * database table name in which will be the whole query.
      * @var String 
      */
     protected $table;
     
     /**
-     * Armazena o SELECT da query
+     * Stores the SELECT of the query
      * @var String 
      */
     private $select;
     
     /**
-     * Armazena os campos da query
+     * Stores the fields of the query
      * @var String 
      */
     private $fields = null;
     
     /**
-     * Armazena os JOINs da query
+     * Stores the JOINs of query
      * @var String  
      */
     private $join;
     
     /**
-     * Armazena o WHERE da query
+     * Stores the WHERE of query
      * @var String  
      */
     private $where;
     
     /**
-     * Armazena o ORDER da query
+     * Stores the ORDER of query
      * @var String  
      */
     private $order;
     
     /**
-     * Armazena o LIMIT da query
+     * Stores the LIMIT of query
      * @var String  
      */
     private $limit;
     
     /**
-     * Armazena o OFFSET da query
+     * Stores the OFFSET of query
      * @var String  
      */
     private $offset;
     
     /**
-     * Método construtor
-     * Armaze a instância da classe PDO na propriedade db
+     * Construct method
+     * Stores the instance of the PDO class db property
      */
     public function __construct()
     {
@@ -84,10 +83,9 @@ class Table
     }
     
     /**
-     * Executa a consulta, 
-     * trazendo os resultados da consulta pelo tipo definido.
+     * Executes the query, bringing the query results-defined type.
      * 
-     * @param String $fecth tipo de fetch que irá retornar
+     * @param String $fecth type of fetch that will return
      * @return Object
      */
     public function fetchAll($fecth = 'fetch_both')
@@ -120,29 +118,30 @@ class Table
     }
     
     /**
-     * Monta o SELECT da query.
+     * Mount the SELECT of the query
      * 
-     * @param String/Array $fields Campos quer serão buscados
+     * @param String|Array $fields Fields that will be searched
      * @return \Ever\Db\Table
      */
     public function select($fields = null)
     {
         if (empty($fields)) { 
-            // Se campos for vazio
+            // if field is empty
             $this->fields = '*';
         } else if (is_string($fields)){
-            // Se campos for uma string
+            // If fields are a string
             $this->fields = $fields;
         } else {
-             // Se campos for um array
+             // If fields are an array
             $fieldsFormated = '';
 
             foreach ($fields as $key => $value) {
                 if (is_numeric($key)) { 
-                    // Se o índice for numérico
+                    // If the index is numeric
                     $fieldsFormated .= $value . ', ';
                 } else {
-                    // Senão é associativo e receberá um apelido que será o seu valor
+                    // If you are not associative and receive a nickname 
+                    // that will be worth your
                     $fieldsFormated .= "{$key} AS {$value}, ";
                 }
             }
@@ -160,33 +159,33 @@ class Table
     }
     
     /**
-     * Monta os Joins da query
-     * recebendo a tabela que irá unir,
-     * a condição para unir, os campos que serão buscados
-     * e por fim o tipo de join, que será inner, left ou right.
+     * Assembles the query of getting Joins the table that will unite the 
+     * condition to unite, the fields that will be searched and finally the type 
+     * of join, which will be inner, left or right.
      * 
-     * @param String $table Nome da tabela para unir
-     * @param String $condition Condição para unir
-     * @param String/Array $fields Campos que serão buscados
-     * @param String $joinType Tipo de join
+     * @param String $table Table name to join
+     * @param String $condition Condition to unite
+     * @param String/Array $fields Fields that will be searched
+     * @param String $joinType Join type
      * @return \Ever\Db\Table
      */
     public function join($table, $condition, $fields = null, $joinType = null)
     {
         if (!empty($fields)) {
             if (is_string($fields)){
-                // Se campos for uma string
+                // If fields are a string
                 $this->fields = $this->fields . ', ' . $fields;
             } else {
-                 // Se campos for um array
+                 // If fields are an array
                 $fieldsFormated = '';
 
                 foreach ($fields as $key => $value) {
                     if (is_numeric($key)) { 
-                        // Se o índice for numérico
+                        // If the index is numeric
                         $fieldsFormated .= $value . ', ';
                     } else {
-                        // Senão é associativo e receberá um apelido que será o seu valor
+                        // If you are not associative and receive a nickname 
+                        // that will be worth your
                         $fieldsFormated .= "{$key} AS {$value}, ";
                     }
                 }
@@ -216,9 +215,9 @@ class Table
     }
     
     /**
-     * Monta o Where da query
+     * Mount of Where the query
      * 
-     * @param String\Array $where Condição da query
+     * @param String|Array $where Query condition
      * @return \Ever\Db\Table
      */
     public function where($where)
@@ -241,9 +240,9 @@ class Table
     }
     
     /**
-     * Monta o order da query
+     * Mount the order of query
      * 
-     * @param string $value Valor do order
+     * @param string $value Value of order
      * @return \Ever\Db\Table
      */
     public function order($value)
@@ -254,9 +253,9 @@ class Table
     }
     
     /**
-     * Monta o Limit da query
+     * Mount the Limit of query
      * 
-     * @param Int $value Valor do limit
+     * @param Int $value Value of limit
      * @return \Ever\Db\Table
      */
     public function limit($value)
@@ -267,9 +266,9 @@ class Table
     }
     
     /**
-     * Monta o Offset da query
+     * Mount the Offset of query
      * 
-     * @param Int $value Valor do Offset
+     * @param Int $value Value of Offset
      * @return \Ever\Db\Table
      */
     public function offset($value)
@@ -280,9 +279,9 @@ class Table
     }
     
     /**
-     * Insreri dados no banco de dados
+     * Insert data in the database
      * 
-     * @param Array $dados Dados para inserir
+     * @param Array $dados Data to insert
      * @return Object
      */
     public function insert(Array $dados)
@@ -306,10 +305,10 @@ class Table
     }
     
     /**
-     * Utualiza uma ou linhas do banco de dados.
+     * Update to one or more lines of databases
      * 
-     * @param Array  $dados Dados para atualizar
-     * @param String $where Condição par atualizar
+     * @param Array  $dados Data to update
+     * @param String $where Condition to update
      * @return Object
      */
     public function update(Array $dados, $where = null)
@@ -331,9 +330,9 @@ class Table
     }
     
     /**
-     * Deleta uma ou mais linhas do banco de dados
+     * Delete one or more lines of databases
      * 
-     * @param String $where Condição para deletar
+     * @param String $where Condition to delete
      * @return Object
      */
     public function delete($where)
@@ -349,9 +348,8 @@ class Table
     }
     
     /**
-     * Monta e retorna a query final,
-     * depois de ter sido setados toda a query, 
-     * como o select, join, where, order, limit, offset.
+     *Monta and return the final query, after being setados entire query, such 
+     * as select, join, where, order, limit, offset.
      * 
      * @return String
      */
