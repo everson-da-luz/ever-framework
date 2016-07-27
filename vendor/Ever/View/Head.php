@@ -163,7 +163,7 @@ trait Head
      */
     public function prependStyleSheet($href, array $attributes = null)
     {
-        array_push($this->styleSheet, array(
+        array_unshift($this->styleSheet, array(
             'href' => $href, 'attributes' => $attributes
         ));
     }
@@ -177,7 +177,7 @@ trait Head
      */
     public function appendStyleSheet($href, array $attributes = null)
     {
-        array_unshift($this->styleSheet, array(
+        array_push($this->styleSheet, array(
             'href' => $href, 'attributes' => $attributes
         ));
     }
@@ -218,7 +218,7 @@ trait Head
      */
     public function prependScript($src, array $attributes = null)
     {
-        array_push($this->script, array(
+        array_unshift($this->script, array(
             'src' => $src, 'attributes' => $attributes
         ));
     }
@@ -232,7 +232,7 @@ trait Head
      */
     public function appendScript($src, array $attributes = null)
     {
-        array_unshift($this->script, array(
+        array_push($this->script, array(
             'src' => $src, 'attributes' => $attributes
         ));
     }
