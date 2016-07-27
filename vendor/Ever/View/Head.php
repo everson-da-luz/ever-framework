@@ -201,9 +201,9 @@ trait Head
                         $style .= ' ' . $atrKey . '="' . $atrValue . '"';
                     }
                 }
+                
+                $style .= $this->closeTagHead();
             }
-
-            $style .= $this->closeTagHead();
         }
 
         return $style;
@@ -256,9 +256,9 @@ trait Head
                         $script .= ' ' . $atrKey . '="' . $atrValue . '"';
                     }
                 }
+                
+                $script .= "></script>\n";
             }
-
-            $script .= "></script>\n";
         }
 
         return $script;
