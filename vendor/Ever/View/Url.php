@@ -114,7 +114,7 @@ Trait Url
         $protocol = strtolower(substr($_SERVER["SERVER_PROTOCOL"], 0, 5)) == 
             'https://' ? 'https://' : 'http://';
         $baseUrl = $protocol . $_SERVER['HTTP_HOST'] . 
-            str_replace(PUBLIC_FOLDER . '/', '', $pathInfo['dirname']);
+            str_replace(PUBLIC_FOLDER, '', $pathInfo['dirname']);
         
         return $baseUrl;
     }

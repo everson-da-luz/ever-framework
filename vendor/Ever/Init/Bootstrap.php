@@ -109,19 +109,7 @@ class Bootstrap
                     ? 'index' : $route['action'];
                 
                 if (isset($route['params']) && !empty($route['params'])) {
-                    $funcArray = array_map(
-                        function ($v, $k) { 
-                            return $k . '/' . $v; 
-                        }, 
-                        $route['params'], 
-                        array_keys($route['params'])
-                    );
-
-                    $params = implode('/', $funcArray);
-                    
-                    View::setParams('/' . $this->controller 
-                        . '/' . $this->action . '/' . $params
-                    );
+                    View::setParams($route['params']);
                 }
             }
         });
