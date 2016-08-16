@@ -109,6 +109,8 @@ class Table
                 default :
                     $fetcthType = \PDO::FETCH_BOTH;
             }
+            
+            $this->clearFields();
 
             return $this->db->query($query)->fetchAll($fetcthType);
         } catch (\PDOException $e) {
@@ -209,7 +211,7 @@ class Table
         
         $query .= $table . ' ON ' . $condition;
         
-        $this->join = $query;
+        $this->join = !empty($this->join) ? $this->join . $query : $query;
         
         return $this;
     }
@@ -364,5 +366,13 @@ class Table
         $query .= !empty($this->offset) ? $this->offset : '';
         
         return $query;
+    }
+    
+    /**
+     * Clean the fields to be used again
+     */
+    private function clearFields()
+    {
+        $this->join = '';
     }
 }
