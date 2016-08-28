@@ -1,21 +1,26 @@
 <?php
 /**
- * Application routes
+ * Application routes 
+ * The route will define to which controller and action the user is redirected. 
+ * The route should be an associative array, the key being the value 
+ * of each route.
  * 
- * This route will define to which controller and action the user will be 
- * directed. Every route should be an array and must 
- * contain the following indexes:
+ * Each index should receive an array containing as the first value the 
+ * controller as a second value to action, and as the third one 
+ * parameter value array.
  * 
- * <b>route</b> the name of the route, which will be the value typed in the url.
- * <b>controller</b> controller that the route will seek, if not set will 
- * arrange for the Index controller.
- * <b>action</b> action that the route will seek, if not set will arrange for 
- * the Index action.
- * <b>params</b> parameters passed, the indices should receive an array as 
- * value, with the key the parameter name and value their worth.
+ * For example:
+ * 
+ * return array(
+ *     'name-of-route' => array(
+ *         'controller', 
+ *         'action', 
+ *         array('param1' => 'value1', 'param2' => 'value2')
+ *     ),
+ * )
  *
  * @return Array containing the defined routes
  */
-return array(
-    array('route' => 'home', 'controller' => 'index', 'action' => 'index')
-);
+return [
+    'home' => ['index', 'index']
+];

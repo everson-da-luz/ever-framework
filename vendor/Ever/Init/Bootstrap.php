@@ -94,25 +94,24 @@ class Bootstrap
     }
     
     /**
-     * Runs along the routes by checking the url belong to a route if he belongs 
-     * shall be setados the controller, action and params belonging that route
+     * Checks whether the current url exists as key routes in arrays, if any, 
+     * the controller , action, and parameters will be set to the values
+     * set on the route
      * 
      * @param String $url Current url
      */
     public function verifyUrlInRoutes($url)
-    {
-        array_walk($this->routes, function($route) use ($url) {
-            if ($url == $route['route']) {
-                $this->controller = empty($route['controller']) 
-                    ? 'index' : $route['controller'];
-                $this->action = empty($route['action']) 
-                    ? 'index' : $route['action'];
-                
-                if (isset($route['params']) && !empty($route['params'])) {
-                    View::setParams($route['params']);
-                }
+    {   
+        if (array_key_exists($url, $this->routes)) {            
+            $this->controller = empty($this->routes[$url][0]) 
+                ? 'index' : $this->routes[$url][0];
+            $this->action = empty($this->routes[$url][1]) 
+                ? 'index' : $this->routes[$url][1];
+
+            if (isset($this->routes[$url][2]) && !empty($this->routes[$url][2])) {
+                View::setParams($this->routes[$url][2]);
             }
-        });
+        }
     }
 
     /**

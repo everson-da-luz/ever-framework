@@ -34,7 +34,7 @@ Trait Url
         if (strpos($parse, '/' . BASE_DIR . '/') !== false) {
             $url = str_replace('/' . BASE_DIR . '/', '', $parse);
         } else {
-            $url = $parse;
+            $url = ltrim($parse, '/');
         }
         
         return $url;
