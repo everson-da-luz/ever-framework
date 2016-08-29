@@ -110,12 +110,13 @@ Trait Url
      */
     public function getBaseUrl()
     {
-        $pathInfo = pathinfo($_SERVER['PHP_SELF']); 
-        $protocol = strtolower(substr($_SERVER["SERVER_PROTOCOL"], 0, 5)) == 
+        $host = $_SERVER['HTTP_HOST'];
+        $path = dirname($_SERVER['PHP_SELF']);
+        $pathReplace = str_replace([PUBLIC_FOLDER, 'index.php'], ['', ''], $path);
+        $protocol = substr($_SERVER["SERVER_PROTOCOL"], 0, 5) == 
             'https://' ? 'https://' : 'http://';
-        $baseUrl = $protocol . $_SERVER['HTTP_HOST'] . 
-            str_replace(PUBLIC_FOLDER, '', $pathInfo['dirname']);
-        
-        return $baseUrl;
+        $baseurl = $protocol . $host . $pathReplace;
+
+        return rtrim($baseurl, '/');
     }
 }
