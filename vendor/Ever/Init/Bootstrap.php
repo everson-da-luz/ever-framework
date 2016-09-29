@@ -24,6 +24,12 @@ class Bootstrap
     private $routes;
     
     /**
+     * Params of routes
+     * @var string|array 
+     */
+    private $routesParams;
+    
+    /**
      * Current controller
      * @var string 
      */
@@ -92,24 +98,74 @@ class Bootstrap
     {
         $this->routes = $routes;
     }
-    
+
     /**
-     * Checks whether the current url exists as key routes in arrays, if any, 
-     * the controller , action, and parameters will be set to the values
-     * set on the route
+     * Travels the route and checks if the present URL is the same as the route, 
+     * if applicable, controller, action and parameters are set to the 
+     * values set in the route
      * 
      * @param String $url Current url
      */
     public function verifyUrlInRoutes($url)
-    {   
-        if (array_key_exists($url, $this->routes)) {            
-            $this->controller = empty($this->routes[$url][0]) 
-                ? 'index' : $this->routes[$url][0];
-            $this->action = empty($this->routes[$url][1]) 
-                ? 'index' : $this->routes[$url][1];
+    {     
+        foreach ($this->routes as $route => $value) {
+            $route = $this->checkAndReplaceRegexInRoute($route, $url, $value);
+            
+            if ($route == $url) {
+                $this->controller = empty($value[0]) ? 'index' : $value[0];
+                $this->action = empty($value[1]) ? 'index' : $value[1];
 
-            if (isset($this->routes[$url][2]) && !empty($this->routes[$url][2])) {
-                View::setParams($this->routes[$url][2]);
+                if (!empty($this->routesParams)) {
+                    View::setParams($this->routesParams);
+                }
+                
+                break;
+            }
+        }
+    }
+    
+    /**
+     * Check and replace regex in route
+     * 
+     * @param string $route  route to check
+     * @param string $url    current url
+     * @param array  $params params defined in route
+     * @return string
+     */
+    private function checkAndReplaceRegexInRoute($route, $url, $params = null)
+    {
+        $pattern = '/^' . 
+            str_replace(
+                ['(any)', '(str)', '(num)', '/'], 
+                ['(.+)', '(\w+)', '(\d+)', '\/'], 
+                $route
+            ) 
+        . '$/';
+        
+        $matches = '';
+        
+        if (preg_match($pattern, $url, $matches)) {
+            $route = preg_replace($pattern, $url, $url);
+            
+            $this->checkAndReplaceRegexInParams($matches, $params);
+        }
+        
+        return $route;
+    }
+    
+    /**
+     * Check and replace regex in params
+     * 
+     * @param array $matches regex matches of route
+     * @param array $params  params of route
+     */
+    private function checkAndReplaceRegexInParams($matches, $params)
+    {
+        $this->routesParams = isset($params[2]) ? $params[2] : '';
+        
+        foreach ($matches as $key => $matche) {
+            if (!empty($this->routesParams) && in_array('$' . $key, $this->routesParams)) {
+                $this->routesParams = str_replace('$' . $key, $matche, $this->routesParams);
             }
         }
     }
@@ -125,7 +181,7 @@ class Bootstrap
     {
         // Current url
         $url = View::getCurrentUrl();
-        
+
         // Runs along the routes by checking that the URL belongs to some route
         $this->verifyUrlInRoutes($url);
 

@@ -1,0 +1,11 @@
+<div class="pagination">
+    <ul>
+        <?php for($page = 1; $page < $this->getTotalPages() + 1; $page ++) : ?>
+            <?php if ($this->getCurrentPage() == $page) : ?>
+                <li><span><?= $page ?></span></li>
+            <?php else : ?>
+                <li><a href="pagina/<?= $page ?>"><?= $page ?></a></li>
+            <?php endif; ?>
+        <?php endfor; ?>
+    </ul>
+</div>

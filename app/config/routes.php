@@ -18,6 +18,25 @@
  *         array('param1' => 'value1', 'param2' => 'value2')
  *     ),
  * )
+ * 
+ * You can also use wildcards in your routes
+ * 
+ * (any) = anything
+ * (str) = only letters
+ * (num) = only numbers
+ * 
+ * And to pass these values as parameters on the routes, just use $ 1 for 
+ * the first value, $ 2 for the second and so on.
+ * 
+ * For example:
+ * 
+ * return array(
+ *     'article/category/(str)/page/(num)' => array(
+ *         'controller', 
+ *         'action', 
+ *         array('category' => '$1', 'page' => '$2')
+ *     ),
+ * )
  *
  * @return Array containing the defined routes
  */
