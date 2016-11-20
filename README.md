@@ -1,6 +1,9 @@
 ![Ever Framework](http://www.eversondaluz.com.br/images/ever-framework-logo.png)
-Bem-vindo ao Ever Framework!
+Ever Framework!
 ===================
+![Version](https://img.shields.io/badge/version-1.8.0-2A99CF.svg)
+![Download](https://img.shields.io/badge/Download-47%2C1%20kB-blue.svg)
+![Licence](https://img.shields.io/badge/licence-Apache--2.0-green.svg)
 
 Ever Framework é um simples framework PHP. Foi desenvolvido em busca de simplicidade e facilidade de uso. Como está na sua primeira versão ainda possui poucas funcionalidades e classes, mas o que tem funciona muito bem, como o seu MVC e métodos que auxiliam a programação, com o decorrer das versões será acrescentado mais funcionalidades. 
 
