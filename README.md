@@ -1,5 +1,4 @@
 ![Ever Framework](http://www.eversondaluz.com.br/images/ever-framework-logo.png)
-Ever Framework
 ===================
 ![Version](https://img.shields.io/badge/version-1.2.7-2A8EBE.svg)
 ![Download](https://img.shields.io/badge/Download-47%2C1%20kB-blue.svg)
@@ -7,9 +6,9 @@ Ever Framework
 
 Ever Framework é um simples framework PHP. Foi desenvolvido em busca de simplicidade e facilidade de uso. Excelentes para projetos de pequeno e médio porte. 
 
-##Documentação
+## Documentação ##
 
-###Estrutura de pastas
+### Estrutura de pastas ###
 
 Ever Framework está dividido em três diretórios principais:
 
@@ -20,7 +19,7 @@ Ever Framework está dividido em três diretórios principais:
 > **Observação**
 > Ever Framework disponibiliza um arquivo **.htaccess** no mesmo nível desses três diretórios, mas o mesmo não é obrigatório, ele apenas serve caso sua aplicação esteja sendo desenvolvida em um ambiente local, onde geralmente sua aplicação fica dentro de uma pasta na raiz do servidor, sendo assim esse .htaccess irá setar a pasta raiz da aplicação como a pasta public.  Caso esteja em ambiente de produção a pasta public irá ser a pasta web da sua aplicação, que muitas vezes é chamada de public_html, web, entre outras.
 
-###Arquivo de inicialização
+### Arquivo de inicialização ###
 No arquivo **index.php**, após serem setados alguns diretórios e configurações necessárias, é instanciada a classe de inicialização, essa classe herda a classe interna **Bootstrap**. A classe de inicialização contida no diretório **app**, que por padrão é o arquivo **Init.php**, irá ser executada antes mesmo de ser definido para onde será despachado o usuário. Com isso pode se utilizar métodos para diversas tarefas, e para que métodos nessa classe possam ser executados automaticamente, basta utilizar a palavra **Init** conforme exemplo a seguir:
 ```php
 public function InitMetodo()
@@ -28,7 +27,7 @@ public function InitMetodo()
 	// Será executado automaticamente
 }
 ```
-###Autoload e Namespace
+### Autoload e Namespace ###
 Por padrão todas as classes contidas no diretório **app** e **vendor** são carregadas automaticamente quando necessário, mas caso queira adicionar outros diretórios no autoload base utilizar o método **autoloadRegister()**, como no exemplo a seguir:
 ```php
 \Ever\Autoload\Autoload::autoloadRegister('diretorio_name');
@@ -38,7 +37,7 @@ Os namespaces devem ser os nomes dos diretórios, e devem contem a primeira letr
 namespace App\Controllers;
 ```
 
-###Conexão com o banco de dados
+### Conexão com o banco de dados ###
 No arquivo **app/config/database.php**, basta retornar um array conforme o exemplo a seguir:
 ```php
 return array(
@@ -50,7 +49,7 @@ return array(
     'db_charset' => 'utf8'
 );
 ```
-###Rotas
+### Rotas ###
 Por padrão o Ever Framework utiliza a url da seguinte forma *site.com.br/controller/action/param1/value1/param2/value2...*
 caso queira criar uma rota alternativa como por exemplo a url *entre-em-contato*, basta acrescentar um array com essa rota no array contido no arquivo **app/config/routes.php** como o exemplo a seguir:
 ```php
@@ -65,7 +64,7 @@ return array(
 	)
 )
 ```
-###Controllers
+### Controllers ###
 Para escolher a view que a action irá utilizar, basta utilizar o método **render**:
 ```php
 $this->render('index');
@@ -79,7 +78,7 @@ No arquivo de view para exibir o valor enviado do controller use:
 <?= $this->view->data ?>
 ```
 
-###Parâmetros
+### Parâmetros ###
 Para resgatar um parâmetro especifico no **controller**:
 ```php
 $this->getParam('nome-do-parametro');
@@ -88,7 +87,7 @@ Para resgatar todos os parâmetros basta utilizar o mesmo método, porém sem pa
 ```php
 $this->getParam();
 ```
-###Error Controller
+### Error Controller ###
 No arquivo **app/config/config.php** você pode definir qual vai ser o controller que fará manipulação de erros. Por padrão é o **Error.php**, mas você pode alterar, apenas modificando a constante no arquivo config.
 ```php
 define('ERROR_CONTROLLER', 'Error');
@@ -111,7 +110,7 @@ try {
 ```
 Caso haja algum erro no código o usuário será despachado para o Error Controller, e lá você pode manipular o erro e exibir páginas como a 404, 500, etc.
 
-###Model
+### Model ###
 Os models herdam a classe interna do Ever chamada **Table**, a classe Table utiliza um objeto da classe nativa do PHP chamada **PDO**, por isso todos os métodos do PDO são aceitáveis pela instancia do Model criado. Para utilizar um model basta instanciar a classe desejada, como por exemplo:
 ```php
 $model = new \App\Models\MyModel();
@@ -224,7 +223,7 @@ $model = new Models\MyModel();
 $model->delete('id = 3');
 ```
 
-###Layouts
+### Layouts ###
 Por padrão os layouts estão no diretório **app/views/layouts**, e por padrão o nome do arquivo de layout é **layout.phtml**, mas caso queira alterar o nome do layout ou criar diversos arquivos para uma melhor organização, basta utilizar o método na action onde você deseja essa mudança:
 ```php
 $this->setLayout('arquivo-de-layout');
@@ -267,7 +266,7 @@ No arquivo de layout, para chamar o conteúdo respectivo de cada view sem altera
 	</body>
 </html>
 ```
-###View
+### View ###
 Ever Framework disponibiliza alguns métodos para facilitar seu desenvolvimento nas views:
 
 Obter a url base da aplicação:
